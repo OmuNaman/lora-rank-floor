@@ -7,7 +7,7 @@
 - **Author block**: Vizuara AI Labs (first author Prit Kudale)
 
 ## Title
-**How Low Can the Rank Go? A Statistically Grounded Study of the Minimum Viable LoRA Rank for Small Transformer Encoders**
+**How Low Can the Rank Go?**
 
 ## Authors
 Prit Kudale¹, Naman Dwivedi², Raj Dandekar², Rajat Dandekar², Sreedath Panat²

@@ -1,4 +1,4 @@
-# Research Status: How Low Can LoRA Rank Go? — The Minimum Viable Rank for PEFT
+# Research Status: How Low Can the Rank Go?
 
 - **Slug**: lora-rank-floor
 - **Statement**: Systematically study the relationship between LoRA rank and downstream text-classification performance for small transformers, and find the minimum viable rank.

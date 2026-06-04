@@ -1,4 +1,6 @@
-# How Low Can the Rank Go? The Minimum Viable LoRA Rank for Small Transformer Encoders
+# How Low Can the Rank Go?
+
+*Finding the LoRA rank floor on small transformer encoders (DistilBERT, SST-2, AG News).*
 
 A statistically grounded study of the **LoRA rank floor**: how few trainable parameters a small
 transformer encoder actually needs to match full fine-tuning. We fine-tune DistilBERT-base on SST-2
@@ -63,7 +65,7 @@ python paper/figures/make_figures.py     # regenerate all 6 figures from the led
 ## Citation
 ```bibtex
 @misc{kudale2026lorarankfloor,
-  title  = {How Low Can the Rank Go? A Statistically Grounded Study of the Minimum Viable LoRA Rank for Small Transformer Encoders},
+  title  = {How Low Can the Rank Go?},
   author = {Kudale, Prit and Dwivedi, Naman and Dandekar, Raj and Dandekar, Rajat and Panat, Sreedath},
   year   = {2026},
   note   = {Vizuara AI Labs}
