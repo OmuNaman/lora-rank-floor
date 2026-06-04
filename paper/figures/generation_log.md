@@ -11,7 +11,8 @@
 | # | file | type | status | attempts | notes |
 |---|------|------|--------|----------|-------|
 | 1 | fig1_rank_floor_curve.png | plot | PASS | 1 | HERO. Acc vs rank (log2), 95% CI, full-FT band + rank-0 probe lines, r* stars (SST-2 r=4, AG News r=32). |
-| 2 | fig2_method_overview.png | diagram | PASS (fixed) | 2 | matplotlib schematic. Fix: removed ❄ tofu glyph; replaced literal `ℝ^{768×768}` with `(768×768)`. |
+| 2 | fig2_method_paperbanana.png | diagram | PASS | 1 | **Used in paper.** PaperBanana `generate` (Nano Banana Pro `gemini-3-pro-image`, VLM `gemini-3.1-pro-preview`), key from project-root `.env`. Critic: "publication-ready", 1 iteration. Verified: correct labels, padlock-for-frozen, W0+B/A zoom, head, bracket strip. |
+| 2b | fig2_method_overview.png | diagram | PASS (fixed) | 2 | matplotlib schematic (kept as fallback). Fix: removed ❄ tofu glyph; replaced literal `ℝ^{768×768}`. |
 | 3 | fig3_accuracy_vs_params.png | plot | PASS | 1 | Pareto: acc vs adapter-param % (log), r annotations, full-FT references. |
 | 4 | fig4_placement_ablation.png | plot | PASS | 1 | attn-only vs attn+MLP grouped bars, both datasets, full-FT line. |
 | 5 | fig5_scaling_ablation.png | plot | PASS | 1 | const s=2 / fixed α=8 / rsLoRA grouped bars (SST-2). |

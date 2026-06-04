@@ -52,7 +52,7 @@ The remainder of the paper reviews related work (Section~\ref{sec:related}), for
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.96\textwidth]{figures/output/fig2_method_overview.png}
+\includegraphics[width=0.88\textwidth]{figures/output/fig2_method_paperbanana.png}
 \caption{LoRA adaptation of a small encoder. The pretrained DistilBERT backbone is frozen; a rank-$r$ update $\Delta W = (\alpha/r) BA$ is added to the attention query and value projections. The classification head is a fixed trainable cost present in every configuration. The rank-0 probe (head only) and full fine-tuning (all weights trainable) bracket the rank sweep.}
 \label{fig:overview}
 \end{figure*}

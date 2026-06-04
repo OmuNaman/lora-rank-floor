@@ -1,0 +1,28 @@
+LoRA Adaptation of a Small Transformer Encoder (DistilBERT)
+IMPORTANT: Pure white background (#FFFFFF). No gray tint, no gradient. Clean, flat, academic.
+
+== CONTEXT ==
+A schematic of how LoRA fine-tunes a small encoder for text classification. The pretrained DistilBERT backbone is frozen; a small low-rank update is added to the attention projections; a small classification head is trained. The figure also shows the two bracketing baselines: a rank-0 probe (head only) and full fine-tuning (everything trainable).
+
+== LAYOUT ==
+Left-to-right horizontal flow in three zones. Zone 1 (left): input. Zone 2 (middle): the frozen encoder stack. Zone 3 (right, enlarged "zoom" callout): one attention weight matrix showing the frozen weight plus the trainable low-rank branch. Far right: the trainable classification head and the output label. A thin labelled bracket strip runs along the bottom.
+
+== COMPONENTS ==
+1. Rounded rectangle / light gray (#F0F0F0) / Label "Input text" with small subtitle "a charming film" / far left, vertically centered.
+2. Tall rounded rectangle container / very light blue (#EAF2FB) with blue border (#2166AC) / Title above it reads "DistilBERT encoder (frozen)" with a small snowflake-free padlock icon meaning frozen / middle-left. Inside it stack six thin identical rounded bars / pale blue (#D6E6F7) / labelled "Transformer layer" (1 through 6 top to bottom).
+3. Large rounded rectangle "zoom" callout / white with light gray border / title "Attention projection" / right of the encoder, larger than the layer bars, connected to the encoder by a thin gray dotted "zoom-in" line.
+4. Inside the zoom, left: a square / medium gray (#E0E0E0) / label "W0 frozen".
+5. A bold plus sign "+" between the gray square and the low-rank branch.
+6. Inside the zoom, right: two small stacked rectangles / soft coral (#FDDBC7) with coral border (#D6604D) / top labelled "B" and bottom labelled "A", drawn small to suggest low rank. A short caption beside them in coral: "trainable low-rank update".
+7. Rounded rectangle / pale green (#E6F5D0) with green border (#1A9850) / label "Classification head (trainable)" / right of the zoom.
+8. Small text label "class" with a short arrow / far right end.
+9. A horizontal bracket strip along the bottom, light (#FAFAFA), with two italic captions: left "rank-0 probe = head only (encoder frozen)"; right "full fine-tuning = all weights trainable".
+
+== CONNECTIONS ==
+solid black arrow = main flow: Input -> Encoder -> (zoom) -> Classification head -> class.
+thin gray dotted line = the zoom-in from the encoder block to the "Attention projection" callout.
+short coral arrow = the low-rank B,A branch adding into the "+".
+No equations or formulas inside the diagram. Keep all labels short plain text.
+
+== STYLE ==
+Clean modern academic illustration. Flat design, sans-serif labels, generous spacing, pastel palette (light blue, coral, pale green, light gray), pure white background, thin 1-2px borders, subtle rounded corners. No drop shadows, no 3D, no clutter. Publication quality, suitable for an IEEE paper figure.
