@@ -5,6 +5,7 @@
 - **Started**: 2026-06-04
 - **Author block**: Prit Kudale¹ (prit.kudale@gmail.com), Naman Dwivedi², Raj Dandekar², Rajat Dandekar², Sreedath Panat² — ²Vizuara AI Labs, hello@vizuara.com
 - **Repo**: https://github.com/OmuNaman/lora-rank-floor
+- **Website**: https://omunaman.github.io/lora-rank-floor/
 
 ## Pipeline Stages
 | # | Stage | Status | Artifact | Notes |
@@ -17,7 +18,7 @@
 | 6 | Write paper           | ✅ done | paper/paper.tex | IEEE conf; 6 figs, 4 tables, 4 eqs, 19 refs; real numbers only |
 | 7 | Compile paper         | ✅ done | paper/paper.pdf | 7 pages, clean build (latexmk/MiKTeX), 0 undefined refs, 0 overfull, all figs embedded |
 | 8 | GitHub repo           | ✅ done | https://github.com/OmuNaman/lora-rank-floor | public; code+results+figs+paper.pdf pushed |
-| 9 | Project website       | ⬜ pending | website/ | |
+| 9 | Project website       | ✅ done | https://omunaman.github.io/lora-rank-floor/ | static page (docs/), GitHub Pages enabled (main/docs) |
 
 ## Key Decisions Log
 - 2026-06-04: Slug `lora-rank-floor`. Modal CLI invoked via `python -m modal` (not on PATH directly); profile `teamvizuara` authenticated. `gh` logged in as OmuNaman.

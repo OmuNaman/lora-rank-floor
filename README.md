@@ -8,7 +8,7 @@ a frozen-encoder rank-0 probe and full fine-tuning, and define the **minimum via
 high-rank LoRA.
 
 📄 **Paper:** [paper/paper.pdf](paper/paper.pdf) — IEEE conference format, 7 pages
-🌐 **Project page:** _(added after the website is deployed)_
+🌐 **Project page:** https://omunaman.github.io/lora-rank-floor/
 
 ## Summary
 - **Problem:** LoRA's rank `r` is the single knob trading capacity for trainable parameters, but the *lower
