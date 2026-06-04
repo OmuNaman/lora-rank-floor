@@ -4,6 +4,7 @@
 - **Statement**: Systematically study the relationship between LoRA rank and downstream text-classification performance for small transformers, and find the minimum viable rank.
 - **Started**: 2026-06-04
 - **Author block**: Prit Kudale¹ (prit.kudale@gmail.com), Naman Dwivedi², Raj Dandekar², Rajat Dandekar², Sreedath Panat² — ²Vizuara AI Labs, hello@vizuara.com
+- **Repo**: https://github.com/OmuNaman/lora-rank-floor
 
 ## Pipeline Stages
 | # | Stage | Status | Artifact | Notes |
@@ -15,7 +16,7 @@
 | 5 | Figures               | ✅ done | paper/figures/output/ | 6/6 figs PASS (matplotlib, real data, 300dpi); all visually verified |
 | 6 | Write paper           | ✅ done | paper/paper.tex | IEEE conf; 6 figs, 4 tables, 4 eqs, 19 refs; real numbers only |
 | 7 | Compile paper         | ✅ done | paper/paper.pdf | 7 pages, clean build (latexmk/MiKTeX), 0 undefined refs, 0 overfull, all figs embedded |
-| 8 | GitHub repo           | ⬜ pending | (url) | |
+| 8 | GitHub repo           | ✅ done | https://github.com/OmuNaman/lora-rank-floor | public; code+results+figs+paper.pdf pushed |
 | 9 | Project website       | ⬜ pending | website/ | |
 
 ## Key Decisions Log

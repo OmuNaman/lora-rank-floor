@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Low Can the Rank Go? &mdash; Minimum Viable LoRA Rank</title>
+  <meta name="description" content="A statistically grounded study of the minimum viable LoRA rank for small transformer encoders (DistilBERT, SST-2, AG News)." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, .serif { font-family: 'Newsreader', Georgia, serif; }
+    .prose-narrow { max-width: 54rem; }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+  <!-- HERO -->
+  <header class="px-6 pt-20 pb-10 text-center">
+    <div class="mx-auto prose-narrow">
+      <h1 class="text-4xl md:text-5xl font-semibold leading-tight text-stone-900">How Low Can the Rank Go?</h1>
+      <p class="mt-3 text-xl text-stone-600 serif">A Statistically Grounded Study of the Minimum Viable LoRA Rank for Small Transformer Encoders</p>
+      <p class="mt-6 text-lg text-stone-700">Prit Kudale<sup>1</sup>, Naman Dwivedi<sup>2</sup>, Raj Dandekar<sup>2</sup>, Rajat Dandekar<sup>2</sup>, Sreedath Panat<sup>2</sup></p>
+      <p class="mt-2 text-sm text-stone-500"><sup>1</sup>prit.kudale@gmail.com &nbsp;&middot;&nbsp; <sup>2</sup>Vizuara AI Labs, hello@vizuara.com</p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="static/paper.pdf" class="px-5 py-2 rounded-full bg-stone-900 text-white text-sm font-medium hover:bg-stone-700 transition">&#128196; Paper (PDF)</a>
+        <a href="https://github.com/OmuNaman/lora-rank-floor" class="px-5 py-2 rounded-full bg-stone-900 text-white text-sm font-medium hover:bg-stone-700 transition">&#128187; Code</a>
+        <a href="#bibtex" class="px-5 py-2 rounded-full border border-stone-300 text-stone-700 text-sm font-medium hover:bg-stone-100 transition">&#128209; BibTeX</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- TL;DR pills -->
+  <section class="px-6 pb-4">
+    <div class="mx-auto prose-narrow grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+      <div class="rounded-xl bg-white border border-stone-200 p-4">
+        <div class="text-2xl font-semibold text-stone-900 serif">r = 4</div>
+        <div class="text-xs text-stone-500 mt-1">min. viable rank on SST-2 (0.11% of params)</div>
+      </div>
+      <div class="rounded-xl bg-white border border-stone-200 p-4">
+        <div class="text-2xl font-semibold text-stone-900 serif">0.027%</div>
+        <div class="text-xs text-stone-500 mt-1">params at r=1 &mdash; closes 59&ndash;72% of the gap</div>
+      </div>
+      <div class="rounded-xl bg-white border border-stone-200 p-4">
+        <div class="text-2xl font-semibold text-stone-900 serif">162 runs</div>
+        <div class="text-xs text-stone-500 mt-1">real Modal A100 experiments, 3 seeds, 0 errors</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABSTRACT -->
+  <section class="px-6 py-10">
+    <div class="mx-auto prose-narrow">
+      <h2 class="text-2xl font-semibold text-stone-900 mb-4">Abstract</h2>
+      <p class="text-stone-700 leading-relaxed text-justify">Low-Rank Adaptation (LoRA) is the default method for parameter-efficient fine-tuning, and its rank <em>r</em> is the single knob that trades adaptation capacity against the number of trainable parameters. Yet how <em>low</em> <em>r</em> can be pushed before adaptation degrades has never been characterized with statistical rigor for small encoder classifiers. We close this gap with a controlled study on DistilBERT-base over two tasks of differing difficulty, SST-2 and AG News, sweeping <em>r</em> &isin; {1,2,4,8,16,32,64} with three seeds per cell, bracketed by a frozen-encoder rank-0 probe and full fine-tuning. We define the <strong>minimum viable rank</strong> as the smallest <em>r</em> whose accuracy is statistically indistinguishable (Welch <em>t</em>-test, &alpha;=0.05) from both full fine-tuning and high-rank LoRA. The rank floor is strikingly low and tracks task difficulty: <strong>r=4 on SST-2</strong> (0.11% of parameters) and <strong>r=32 on AG News</strong> under strict equivalence (r&asymp;4 under a 0.5% practical tolerance). Even r=1, with only 18,432 adapter parameters (0.027% of the model), recovers 59 to 72% of the probe-to-full-fine-tuning gap. The only regime in which adaptation truly fails is rank 0. The floor is robust to the LoRA scaling rule and, remarkably, to data scarcity: at 500 to 10,000 training examples, low-rank LoRA matches or exceeds full fine-tuning.</p>
+    </div>
+  </section>
+
+  <!-- HERO FIGURE -->
+  <section class="px-6 py-8">
+    <div class="mx-auto prose-narrow">
+      <figure class="text-center">
+        <img src="static/figures/fig1_rank_floor_curve.png" alt="The LoRA rank-floor curve" class="mx-auto rounded-lg shadow-sm border border-stone-200 bg-white" />
+        <figcaption class="mt-3 text-sm text-stone-500">The LoRA rank floor. Accuracy vs. rank for DistilBERT-base, with 95% confidence intervals over three seeds; the green band is the full-fine-tuning interval, the dotted line the rank-0 probe, and the star marks the minimum viable rank.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- METHOD / FIGURES GALLERY -->
+  <section class="px-6 py-8">
+    <div class="mx-auto prose-narrow">
+      <h2 class="text-2xl font-semibold text-stone-900 mb-6">Method &amp; Analysis</h2>
+
+      <figure class="mb-10 text-center">
+        <img src="static/figures/fig2_method_overview.png" class="mx-auto rounded-lg shadow-sm border border-stone-200 bg-white" />
+        <figcaption class="mt-3 text-sm text-stone-500">LoRA on a frozen DistilBERT encoder: a rank-<em>r</em> update on the attention projections, with a fixed trainable head. The rank-0 probe and full fine-tuning bracket the sweep.</figcaption>
+      </figure>
+
+      <figure class="mb-10 text-center">
+        <img src="static/figures/fig3_accuracy_vs_params.png" class="mx-auto rounded-lg shadow-sm border border-stone-200 bg-white" />
+        <figcaption class="mt-3 text-sm text-stone-500">Accuracy vs. adapter parameters (% of model, log scale). Tiny adapters reach the full-fine-tuning bracket; the marginal value of extra rank collapses almost immediately.</figcaption>
+      </figure>
+
+      <figure class="mb-10 text-center">
+        <img src="static/figures/fig4_placement_ablation.png" class="mx-auto rounded-lg shadow-sm border border-stone-200 bg-white" />
+        <figcaption class="mt-3 text-sm text-stone-500">Module-placement ablation. Attention+MLP lowers the rank floor (AG News attn+MLP r=16 &asymp; full-FT), but attention-only is the most parameter-efficient route.</figcaption>
+      </figure>
+
+      <figure class="mb-10 text-center">
+        <img src="static/figures/fig5_scaling_ablation.png" class="mx-auto rounded-lg shadow-sm border border-stone-200 bg-white" />
+        <figcaption class="mt-3 text-sm text-stone-500">&alpha;-scaling ablation (SST-2). The floor is largely scaling-invariant; at r=1 a larger effective scaling recovers ~0.5 points.</figcaption>
+      </figure>
+
+      <figure class="mb-4 text-center">
+        <img src="static/figures/fig6_data_efficiency.png" class="mx-auto rounded-lg shadow-sm border border-stone-200 bg-white" />
+        <figcaption class="mt-3 text-sm text-stone-500">Data-efficiency &times; rank. Under data scarcity (500&ndash;10,000 examples), low-rank LoRA matches or beats full fine-tuning &mdash; the regularization effect.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="px-6 py-10">
+    <div class="mx-auto prose-narrow">
+      <h2 class="text-2xl font-semibold text-stone-900 mb-6">Headline Results</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="border-b-2 border-stone-300 text-left">
+              <th class="py-2 pr-4">Task</th>
+              <th class="py-2 px-3 text-right">Full FT</th>
+              <th class="py-2 px-3 text-right">Probe (r=0)</th>
+              <th class="py-2 px-3 text-right">LoRA r=1</th>
+              <th class="py-2 px-3 text-right">LoRA r=4</th>
+              <th class="py-2 px-3 text-right">LoRA r=64</th>
+              <th class="py-2 pl-3">Min. viable rank</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 pr-4 font-medium">SST-2 (dev)</td>
+              <td class="py-2 px-3 text-right">0.903</td>
+              <td class="py-2 px-3 text-right text-stone-500">0.845</td>
+              <td class="py-2 px-3 text-right">0.887</td>
+              <td class="py-2 px-3 text-right font-semibold">0.898</td>
+              <td class="py-2 px-3 text-right">0.896</td>
+              <td class="py-2 pl-3 font-semibold text-emerald-700">r = 4 &nbsp;(0.11%)</td>
+            </tr>
+            <tr class="border-b border-stone-200">
+              <td class="py-2 pr-4 font-medium">AG News (test)</td>
+              <td class="py-2 px-3 text-right">0.946</td>
+              <td class="py-2 px-3 text-right text-stone-500">0.917</td>
+              <td class="py-2 px-3 text-right">0.934</td>
+              <td class="py-2 px-3 text-right">0.939</td>
+              <td class="py-2 px-3 text-right font-semibold">0.945</td>
+              <td class="py-2 pl-3 font-semibold text-emerald-700">r = 32 / &asymp;4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-stone-500">Test accuracy, mean over 3 seeds. Minimum viable rank = smallest rank statistically indistinguishable from full fine-tuning (Welch <em>t</em>-test, &alpha;=0.05); AG News shows the strict floor and the practical (&le;0.5%) floor. Full per-rank table with confidence intervals and parameter counts in the paper and the <a class="underline" href="https://github.com/OmuNaman/lora-rank-floor/blob/main/experiments/experiments_log.md">results ledger</a>.</p>
+    </div>
+  </section>
+
+  <!-- BIBTEX -->
+  <section id="bibtex" class="px-6 py-10">
+    <div class="mx-auto prose-narrow">
+      <h2 class="text-2xl font-semibold text-stone-900 mb-4">BibTeX</h2>
+      <pre class="bg-stone-900 text-stone-100 rounded-lg p-5 text-xs leading-relaxed overflow-x-auto">@misc{kudale2026lorarankfloor,
+  title  = {How Low Can the Rank Go? A Statistically Grounded Study of the
+            Minimum Viable LoRA Rank for Small Transformer Encoders},
+  author = {Kudale, Prit and Dwivedi, Naman and Dandekar, Raj and
+            Dandekar, Rajat and Panat, Sreedath},
+  year   = {2026},
+  note   = {Vizuara AI Labs}
+}</pre>
+    </div>
+  </section>
+
+  <footer class="px-6 py-12 text-center text-sm text-stone-400">
+    <p>Vizuara AI Labs &middot; 2026 &middot; <a class="underline" href="https://github.com/OmuNaman/lora-rank-floor">github.com/OmuNaman/lora-rank-floor</a></p>
+    <p class="mt-1">All results are real, computed on Modal A100 GPUs and logged to an append-only ledger.</p>
+  </footer>
+
+</body>
+</html>
