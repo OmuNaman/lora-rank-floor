@@ -11,6 +11,7 @@
 \usepackage{float}
 \usepackage{subcaption}
 \usepackage{algorithm}
+\usepackage{placeins}
 \definecolor{pendingcolor}{RGB}{200, 100, 50}
 \newcommand{\pending}[1]{\textcolor{pendingcolor}{\textit{[#1]}}}
 
@@ -229,6 +230,7 @@ Figure~\ref{fig:dataeff} asks whether the floor rises when training data is scar
 \subsection{Discussion}
 Three findings emerge. First, the only regime in which adaptation truly breaks down is rank 0: the probe is decisively worse than full fine-tuning, by 5.8 points on SST-2 and 2.9 points on AG News, while every rank $r \geq 1$ recovers most or all of the gap. The low-rank update therefore performs real, necessary work. Second, task difficulty sets the floor: the easy binary task saturates at $r{=}4$, while the harder four-way task requires $r{=}32$ for strict statistical equivalence. Third, the reported floor depends materially on the equivalence criterion. Because AG News has very small seed variance, sub-point accuracy gaps become statistically significant even though they are practically negligible, so the strict floor ($r{=}32$) and the practical floor ($r{\approx}4$) differ by nearly an order of magnitude. This distinction, invisible to studies that report only point estimates, is a methodological caution for the field: claims about the sufficiency of a given rank should state both the seed variability and the equivalence threshold.
 
+\FloatBarrier
 \section{Limitations and Future Work}
 \label{sec:limitations}
 Our study covers one backbone family (DistilBERT) and two classification tasks, and addresses encoder classifiers rather than generative decoders, where prior work~\cite{biderman2024lora} shows higher-rank demands on hard tasks. The minimum viable rank is defined relative to a chosen significance level and seed count; larger seed counts would tighten the confidence intervals and could shift the strict floor. Future work should extend the protocol to additional encoders such as DistilRoBERTa and BERT-base, to regression, natural-language-inference, and token-level tasks, and to decoder language models, and should study automatic per-layer rank allocation under the same significance-grounded lens.
