@@ -1,0 +1,24 @@
+# raw downloaded papers (copyright) — keep only the literature review text
+literature/papers/*.pdf
+
+# python / build junk
+**/__pycache__/
+*.pyc
+
+# LaTeX build artifacts (keep paper.pdf and paper.tex)
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.toc
+
+# raw Modal run payloads (redundant with results.jsonl, the source of truth)
+experiments/_*.json
+experiments/modal/modal_app.py.template
+
+# per-run scratch outputs
+experiments/runs/

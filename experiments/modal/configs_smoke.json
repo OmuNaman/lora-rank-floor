@@ -1,0 +1,15 @@
+{
+  "exp_id": "smoke-sst2-r8-s0",
+  "dataset": "sst2",
+  "method": "lora",
+  "type": "smoke",
+  "rank": 8,
+  "lora_alpha": 16,
+  "use_rslora": false,
+  "placement": "attn",
+  "seed": 0,
+  "epochs": 1,
+  "lr": 0.0005,
+  "batch_size": 32,
+  "smoke": true
+}
